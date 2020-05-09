@@ -6,7 +6,7 @@ import (
 	"os/exec"
 )
 
-func UML(src []byte) (dist []byte, err error) {
+func UML(src []byte, args ...string) (dist []byte, err error) {
 	var path string
 	var stdin io.WriteCloser
 
@@ -15,7 +15,8 @@ func UML(src []byte) (dist []byte, err error) {
 		return
 	}
 
-	cmd := exec.Command(path, "-Tsvg", "-p", "-Djava.awt.headless=true")
+	params := append([]string{"-Tsvg", "-p", "-Djava.awt.headless=true"}, args...)
+	cmd := exec.Command(path, params...)
 	cmd.Env = append(cmd.Env, "JAVA_OPTS='-Djava.awt.headless=true'")
 
 	stdin, err = cmd.StdinPipe()
