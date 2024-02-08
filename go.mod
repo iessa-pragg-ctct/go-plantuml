@@ -1,6 +1,3 @@
-module github.com/OhYee/go-plantuml
+module github.com/iessa-pragg-ctct/go-plantuml
 
-go 1.13
-
-require (
-)
+go 1.20
