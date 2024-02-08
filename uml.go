@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"os/exec"
 )
 
@@ -18,9 +19,9 @@ func UML(src []byte, args ...string) (dist []byte, err error) {
 		return
 	}
 
-	params := append([]string{"-Tsvg", "-p", "-Djava.awt.headless=true"}, args...)
+	params := append([]string{"-Tsvg", "-p"}, args...)
 	cmd := exec.Command(path, params...)
-	cmd.Env = append(cmd.Env, "JAVA_OPTS='-Djava.awt.headless=true'")
+	cmd.Env = append(os.Environ(), "JAVA_OPTS='-Djava.awt.headless=true'")
 
 	stdin, err = cmd.StdinPipe()
 	if err != nil {
